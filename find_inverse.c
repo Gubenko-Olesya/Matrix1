@@ -199,3 +199,27 @@ int check(double *A, double *B, int size)			//Gubenko Olesya 112
 	return 0;
 }
 
+
+//raspechativaet matritsu
+int print_matrix(double *A, int size) 				//Gubenko Olesya 112
+{
+	int i, j;
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < size; j++) {
+			if (A[i * size + j] >= 0)
+				printf(" ");
+			if (A[i * size + j] < 10)
+				printf(" ");
+			printf("%.3f", A[i * size +j]);
+			if (size > 10 && (j+1) % 10 == 0)
+				printf("\n");
+		}
+		if (size > 10)
+			printf("\n\n");
+		else
+			printf("\n");
+	}
+	return 0;
+}
+
+
