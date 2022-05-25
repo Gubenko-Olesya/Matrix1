@@ -6,7 +6,7 @@ int main()					//Gubenko Olesya 112
 {
 	int size, i, j, k, Error;
 	double *A, *idA, *B;
-	FILE *in = fopen("input.txt", "rt");
+	FILE *in, *out;
 	printf("Hi! This program was made to compute the inverse matrix of given matrix A.\n");
 	printf("Please, enter matrix size.\n");
 	if ( (scanf("%d", &size) != 1) || (size < 0) )	{
@@ -20,40 +20,39 @@ int main()					//Gubenko Olesya 112
 	B = (double*) malloc(size * size * sizeof(double));
 
 	randomize(A, size);
-	/*
-	for (i = 0; i < size; i++) {
-		for (j = 0; j < size; j++) {
-			k = fscanf(in, "%lf", &A[i * size + j]);
-			if (k != 1) {
-				printf("Not enough data in input.txt.\n");
-				return -1;
-			}
-		}
-	}
+	/*if (scan_matrix(in, A, size)==-1)
+		printf("Not enough data in input.txt.\n");
+		return -1;
+
 	*/
-	printf("Given matrix:\n");
-	print_matrix(A, size);
+
+	in = fopen("input.txt", "wt");
+	print_matrix(in, A, size);
+	fclose(in);
 
 	copy(A, idA, size);
 	identity(B, size);
+
 	find_inverse(A, B, size, &Error);
 
 	if (check(idA, B, size)==(-1))
-		printf("Something went wrong while finding inverse matrix, please, try again.\n");
+		printf("Something went wrong while finding inverse matrix, please, try again.\nCheck the file 'check.txt' to see the result of A*B.\n");
 	else {
 		if (Error == 1)	{
 			printf("There is no inverse matrix for non-square matrix.\n");
 			return -1;
 		}
 		else {
-			printf("The inverse matrix was successfully found:\n");
-			print_matrix(B, size);
+			out = fopen("output.txt", "wt");
+			printf("The inverse matrix was successfully found.\nCheck the file 'output.txt' to see the result.\nCheck the file 'check.txt' to see the result of A*B.\n");
+			fprintf(out, "B: \n");
+			print_matrix(out, B, size);
+			fclose(out);
 		}
 	}
 	free(A);
 	free(idA);
 	free(B);
-	fclose(in);
 	return 0;
 }
 

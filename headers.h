@@ -9,4 +9,4 @@ int fun(double *A, double *B, int size, int n1, int m1); //Gubenko Olesya 112
 int funct(double *A, double *B, int size); //Gubenko Olesya 112
 int find_inverse(double *A, double *B, int size, int *Error); //Gubenko Olesya 112
 int check(double *A, double *B, int size); //Gubenko Olesya 112
-int print_matrix(double *A, int size); //Gubenko Olesya 112
+int print_matrix(FILE *file, double *A, int size); //Gubenko Olesya 112
